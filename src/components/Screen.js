@@ -4,6 +4,7 @@ import Button from './Button'
 class Screen extends Component {
 
     render() {
+      //  console.log(this.props.state.expression);
         let buttonsReused = [];
         let symbols = ['+', '-', '*', '/', 'MR', 'MS'];
         for (let i = 0; i < 10; i++) {

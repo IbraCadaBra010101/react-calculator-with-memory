@@ -3,12 +3,12 @@ import Screen from './Screen'
 
 class Calculate extends Component {
     state = {
-        expression: 0
+        expression: 11
     };
 
     render() {
         return <React.Fragment>
-            <Screen state={this.state.expression}/>
+            <Screen value={this.state.expression}/>
         </React.Fragment>
     }
 
