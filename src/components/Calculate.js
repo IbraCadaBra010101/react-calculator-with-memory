@@ -7,8 +7,8 @@ class Calculate extends Component {
     };
 
     render() {
-        return <React.Fragment className="Fragment">
-            <Screen/>
+        return <React.Fragment>
+            <Screen state={this.state.expression}/>
         </React.Fragment>
     }
 
