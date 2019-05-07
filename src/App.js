@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
-import Screen from './components/Screen'
+import Calculate from './components/Calculate'
+
 function App() {
 
     return (
         <div className="App">
-            <Screen/>
+            <Calculate/>
         </div>
     );
 }

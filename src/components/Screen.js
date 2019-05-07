@@ -2,9 +2,6 @@ import React, {Component} from 'react';
 import Button from './Button'
 
 class Screen extends Component {
-    state = {
-        expression: 0
-    };
 
 
     render() {
