@@ -6,9 +6,10 @@ class Button extends Component {
     };
 
     render() {
-
         return (<button className={'calc-button'} onClick={this.number}>{this.props.text}</button>)
     }
 }
 
 export default Button;
+
+
