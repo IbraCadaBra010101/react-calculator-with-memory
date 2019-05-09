@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 class Button extends Component {
     number = () => {
-        this.props.buttonHandler(this.props.text);
+        this.props.onClickHandler(this.props.text);
     };
 
     render() {

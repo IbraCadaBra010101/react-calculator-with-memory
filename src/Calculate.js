@@ -6,48 +6,32 @@ import OperandButtons from './components/OperandButtons'
 class Calculate extends Component {
 
     state = {
-        // operator: '',
+        operator: '',
         input: 0,
         current: 0,
         result: 0,
     };
-
-    buttonHandler = (event) => {
-        // if button + is pressed setState to add etc . . .
-        // get the innerHTML of each button
+    handleChange =(event)=>{
         this.setState({
-            input: event
+            input: event.target.value
         });
+        console.log(this.state.input)
     };
-
-    operandHandler = (event) => {
-        let operand = event.target.innerHTML;
-        if (operand) {
-            if (operand === '+') {
-               console.log(operand);
-            }
-        }
+    addition = () => {
+     console.log('add')
     };
-
+    subtraction = () => {
+        console.log('subtraction')
+    };
 
     render() {
 
-        let buttonsReused = [];
-        let symbols = ['+', '-', '*', '/', 'MR', 'MS'];
-
-        for (let i = 0; i < 10; i++) {
-            buttonsReused.push(<Button key={i} text={i} buttonHandler={this.buttonHandler}/>);
-        }
-
-        for (let symbol of symbols) {
-            buttonsReused.push(<OperandButtons key={symbol} operands={symbol} operandHandler={this.operandHandler}/>)
-        }
         return <React.Fragment>
             <h1>React Calculator</h1>
-            <Screen input={this.state.input} buttonHandler={this.buttonHandler}/>
-            {buttonsReused}
-            <p>{this.state.input}</p>
-
+            <Screen input={this.state.input} handleChange = {this.handleChange}/>
+            <OperandButtons addition = {this.addition} subtraction = {this.subtraction}/>
+            <p>{this.state.input}: Input</p>
+            <p>{this.state.current}: Result</p>
         </React.Fragment>
     }
 }

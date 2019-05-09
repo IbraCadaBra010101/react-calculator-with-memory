@@ -5,7 +5,7 @@ class Screen extends Component {
     render() {
 
         return (<React.Fragment>
-            <input type="text" value={this.props.input} onChange={this.props.buttonHandler} />
+            <input type="text" value={this.props.input} onChange={this.props.handleChange} />
             <h3>{this.props.input}</h3>
         </React.Fragment>)
     }
