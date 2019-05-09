@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Screen from './components/Screen'
 import Button from "./components/Button";
+import OperandButtons from './components/OperandButtons'
 
 class Calculate extends Component {
 
@@ -13,27 +14,37 @@ class Calculate extends Component {
 
     buttonHandler = (event) => {
         // if button + is pressed setState to add etc . . .
+        // get the innerHTML of each button
         this.setState({
             input: event
         });
+    };
 
-        console.log(this.state.input);
+    operandHandler = (event) => {
+        let operand = event.target.innerHTML;
+        if (operand) {
+            if (operand === '+') {
+               console.log(operand);
+            }
+        }
     };
 
 
-
     render() {
+
         let buttonsReused = [];
         let symbols = ['+', '-', '*', '/', 'MR', 'MS'];
+
         for (let i = 0; i < 10; i++) {
             buttonsReused.push(<Button key={i} text={i} buttonHandler={this.buttonHandler}/>);
         }
+
         for (let symbol of symbols) {
-            buttonsReused.push(<Button key={symbol} text={symbol} buttonHandler={this.buttonHandler}/>)
+            buttonsReused.push(<OperandButtons key={symbol} operands={symbol} operandHandler={this.operandHandler}/>)
         }
         return <React.Fragment>
-            <h1>calculate stuff with react</h1>
-            <Screen input={this.state.input} buttonHandler = {this.buttonHandler}/>
+            <h1>React Calculator</h1>
+            <Screen input={this.state.input} buttonHandler={this.buttonHandler}/>
             {buttonsReused}
             <p>{this.state.input}</p>
 
