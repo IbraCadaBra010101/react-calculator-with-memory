@@ -12,11 +12,12 @@ class Calculate extends Component {
     };
 
     buttonHandler = (event) => {
+        // if button + is pressed setState to add etc . . .
         this.setState({
             input: event
         });
 
-        console.log(event);
+        console.log(this.state.input);
     };
 
 
