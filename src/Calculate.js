@@ -13,31 +13,44 @@ class Calculate extends Component {
     };
     handleChange = (event) => {
         this.setState({
-            input:  event.target.value
+            input: event.target.value
         });
-        console.log(this.state.input)
     };
     addition = () => {
         this.setState({
             operator: '+',
-            current:  this.state.current +  Number(this.state.input)
+            current:this.state.current + Number(this.state.input),
+
         })
     };
     subtraction = () => {
         this.setState({
             operator: '-',
-            current:  this.state.current  - Number(this.state.input)
+            current: this.state.current - Number(this.state.input),
+
         })
+    };
+    clear = () => {
+        this.setState({
+            input: 0
+        })
+    };
+    equals = () => {
+        console.log(this.state.current);
+        return this.state.current;
     };
 
     render() {
-
+        const result = this.state.current;
         return <React.Fragment>
             <h1>React Calculator</h1>
             <Screen input={this.state.input} handleChange={this.handleChange}/>
-            <OperandButtons addition={this.addition} subtraction={this.subtraction}/>
-            <p>{this.state.input}: Input</p>
-            <p>{this.state.current}: Result</p>
+            <OperandButtons addition={this.addition}
+                            subtraction={this.subtraction}
+                            clear={this.clear}
+                            equals={this.equals}/>
+            <p>Input{this.state.input}: </p>
+            <p>Result{this.state.current}: </p>
         </React.Fragment>
     }
 }
