@@ -9,7 +9,7 @@ class OperandButtons extends Component {
                 <button className={'addition'} onClick={this.props.addition}>+</button>
                 <button className={'MS'} onClick={this.props.subtraction}>MS</button>
                 <button className={'addition'} onClick={this.props.addition}>MR</button>
-                <button className={'Clear'} onClick={this.props.clear}>CE</button>
+                <button className={'Clear'} onClick={this.props.clear}>Clear</button>
                 <button className={'equals'} onClick={this.props.equals}>=</button>
             </React.Fragment>
         )

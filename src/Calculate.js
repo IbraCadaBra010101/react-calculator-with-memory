@@ -10,22 +10,24 @@ class Calculate extends Component {
         result: 0,
     };
 
+
     handleChange = (event) => {
         this.setState({
             input: event,
+
         });
     };
     addition = () => {
         this.setState({
             operator: '+',
-            // current: this.state.current + Number(this.state.input),
 
+            // current: this.state.current + Number(this.state.input),
         })
     };
     subtraction = () => {
         this.setState({
             operator: '-',
-            //current: this.state.current - Number(this.state.input),
+
         })
     };
     clear = () => {
@@ -34,20 +36,13 @@ class Calculate extends Component {
         })
     };
     equals = () => {
-        let currentOperator = this.state.operator;
-        console.log(this.state.input);
-        if (currentOperator === '+') {
-            this.setState({
-                result: this.state.result + Number(this.state.input)
-            });
-        }
-        if (currentOperator === '-') {
-            this.setState({
-                result: this.state.result - Number(this.state.input)
-            });
-        }
-    };
+        let operator = this.state.operator;
+        if(operator ===)
 
+    };
+//     if( currentOperator === '+' ) {
+//     resultSoFar = resultSoFar + Number(valueInInputField);
+// }
     render() {
         // const result = this.state.current;
         return <React.Fragment>
