@@ -48,8 +48,6 @@ class Calculate extends Component {
                 result: this.state.result - Number(this.state.input),
             });
         }
-        this.savedResults.push(this.state.result);
-
     };
 
     // VG: Om man klickar på "M+ / spara resultat" ska resultatet hittills sparas i appen.
@@ -58,19 +56,22 @@ class Calculate extends Component {
     // Exempel: 1 + 2, lika med (3), spara resultat (3),
     // rensa (0), 5 - (hämta resultat = 3) blir lika med 2
 
-
-    // memory = [];
-    // displayMemory = () => {
-    //     this.memory.forEach(el => {
-    //         console.log(el);
-    //     })
-    // };
-
-     addToMemory = () => {
-
+    savedResults = [];
+    addToMemory = () => {
+        this.savedResults.push(this.state.input);
+        // this.savedResults.forEach(el => {
+        //     console.log(el);
+        // })
+    };
+    useMemory = () => {
+        const toBeUsedInExpression = [...this.savedResults];
+        let latestNum = toBeUsedInExpression.pop();
+        this.setState({
+            input: latestNum
+        })
     };
 
-     render() {
+    render() {
 
 
         return <React.Fragment>
@@ -82,7 +83,7 @@ class Calculate extends Component {
                             equals={this.equals}/>
             <p>Input {this.state.input}: </p>
             <p>Result {this.state.result}: </p>
-            <CalcMemory addToMemory={this.addToMemory}/>
+            <CalcMemory addToMemory={this.addToMemory} useMemory={this.useMemory}/>
         </React.Fragment>
     }
 }
