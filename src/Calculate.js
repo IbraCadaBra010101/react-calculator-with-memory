@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Screen from './components/Screen'
 import OperandButtons from './components/OperandButtons'
+import CalcMemory from './components/CalcMemory'
 
 class Calculate extends Component {
 
@@ -8,6 +9,7 @@ class Calculate extends Component {
         operator: '',
         input: 0,
         result: 0,
+        memory: []
     };
 
     handleChange = (event) => {
@@ -38,18 +40,39 @@ class Calculate extends Component {
         console.log(this.state.input);
         if (currentOperator === '+') {
             this.setState({
-                result: this.state.result + Number(this.state.input)
+                result: this.state.result + Number(this.state.input),
             });
         }
         if (currentOperator === '-') {
             this.setState({
-                result: this.state.result - Number(this.state.input)
+                result: this.state.result - Number(this.state.input),
             });
         }
+        this.savedResults.push(this.state.result);
+
     };
 
-    render() {
-        // const result = this.state.current;
+    // VG: Om man klickar på "M+ / spara resultat" ska resultatet hittills sparas i appen.
+    // När man senare klickar på "M- /
+    // hämta" ska det senast sparade resultatet hämtas läggas i textfältet.
+    // Exempel: 1 + 2, lika med (3), spara resultat (3),
+    // rensa (0), 5 - (hämta resultat = 3) blir lika med 2
+
+
+    // memory = [];
+    // displayMemory = () => {
+    //     this.memory.forEach(el => {
+    //         console.log(el);
+    //     })
+    // };
+
+     addToMemory = () => {
+
+    };
+
+     render() {
+
+
         return <React.Fragment>
             <h1>React Calculator</h1>
             <Screen input={this.state.input} handleChange={this.handleChange}/>
@@ -59,6 +82,7 @@ class Calculate extends Component {
                             equals={this.equals}/>
             <p>Input {this.state.input}: </p>
             <p>Result {this.state.result}: </p>
+            <CalcMemory addToMemory={this.addToMemory}/>
         </React.Fragment>
     }
 }
