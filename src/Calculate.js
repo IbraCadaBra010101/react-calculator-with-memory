@@ -9,7 +9,10 @@ class Calculate extends Component {
         operator: '',
         input: 0,
         result: 0,
-        memory: []
+        memory: [],
+        additionMarker: false,
+        subtractionMarker: false,
+        markingColor: 'green'
     };
 
     handleChange = (event) => {
@@ -20,22 +23,25 @@ class Calculate extends Component {
     addition = () => {
         this.setState({
             operator: '+',
-            // current: this.state.current + Number(this.state.input),
+            additionMarker: true,
+            subtractionMarker: false,
 
         })
     };
     subtraction = () => {
         this.setState({
             operator: '-',
-            //current: this.state.current - Number(this.state.input),
+            subtractionMarker: true,
+            additionMarker:false,
         })
     };
     clear = () => {
         this.setState({
-            input: 0
+            input: 0,
         })
     };
     equals = () => {
+
         let currentOperator = this.state.operator;
         console.log(this.state.input);
         if (currentOperator === '+') {
@@ -50,18 +56,10 @@ class Calculate extends Component {
         }
     };
 
-    // VG: Om man klickar på "M+ / spara resultat" ska resultatet hittills sparas i appen.
-    // När man senare klickar på "M- /
-    // hämta" ska det senast sparade resultatet hämtas läggas i textfältet.
-    // Exempel: 1 + 2, lika med (3), spara resultat (3),
-    // rensa (0), 5 - (hämta resultat = 3) blir lika med 2
-
     savedResults = [];
     addToMemory = () => {
         this.savedResults.push(this.state.input);
-        // this.savedResults.forEach(el => {
-        //     console.log(el);
-        // })
+
     };
     useMemory = () => {
         const toBeUsedInExpression = [...this.savedResults];
@@ -80,7 +78,12 @@ class Calculate extends Component {
             <OperandButtons addition={this.addition}
                             subtraction={this.subtraction}
                             clear={this.clear}
-                            equals={this.equals}/>
+                            equals={this.equals}
+                            additionMarker={this.state.additionMarker}
+                            subtractionMarker = {this.state.subtractionMarker}
+                            markingColor={this.state.markingColor}
+
+            />
             <p>Input {this.state.input}: </p>
             <p>Result {this.state.result}: </p>
             <CalcMemory addToMemory={this.addToMemory} useMemory={this.useMemory}/>

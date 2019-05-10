@@ -1,19 +1,27 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class OperandButtons extends Component {
+const OperandButtons = props =>
 
-    render() {
-        return (
+    (
+        (
             <React.Fragment>
-                <button className={'operandButton'} onClick={this.props.subtraction}>-</button>
-                <button className={'addition'} onClick={this.props.addition}>+</button>
-                <button className={'MS'} onClick={this.props.subtraction}>MS</button>
-                <button className={'addition'} onClick={this.props.addition}>MR</button>
-                <button className={'Clear'} onClick={this.props.clear}>Clear</button>
-                <button className={'equals'} onClick={this.props.equals}>=</button>
+                <button className={'operandButton'}
+                        style={{backgroundColor: props.subtractionMarker ? props.markingColor: 'white'}}
+                        onClick={props.subtraction}>-</button>
+                <button className={'addition'}
+                         style={{backgroundColor: props.additionMarker ? props.markingColor: 'white'}}
+                        onClick={props.addition}>+</button>
+                <button className={'Clear'} onClick={props.clear}
+                        // style={{backgroundColor: props.toggleColor ? props.markingColor: 'red'}}
+                >Clear</button>
+                <button  onClick={props.equals}
+                         // style={{backgroundColor: props.toggleColor ? props.markingColor: 'white'}}
+                >=</button>
             </React.Fragment>
         )
-    }
-}
-
+    );
 export default OperandButtons;
+
+
+// ={this.state.additionMarker}
+//  = {this.state.subtractionMarker}
