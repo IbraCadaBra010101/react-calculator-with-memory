@@ -17,8 +17,23 @@ class Calculate extends Component {
     handleChange = (event) => {
         this.setState({
             input: event,
+
         });
     };
+
+    // addition = () => {
+    //     this.setState((prev, props) => {
+    //         return {input: Number(prev.input)}
+    //     });
+    //     console.log(this.state.input);
+    //
+    // };
+
+    // submit(){
+    //     this.setState(function(prevState, props){
+    //         return {showForm: !prevState.showForm}
+    //     });
+    // }
     addition = () => {
         this.setState({
             operator: '+',
@@ -27,12 +42,14 @@ class Calculate extends Component {
             current: Number(this.state.input) +  Number(this.state.current )
         });
     };
+
+
     subtraction = () => {
         this.setState({
             operator: '-',
             subtractionMarker: true,
             additionMarker: false,
-            current: -Number(this.state.input) - this.state.current
+            current: Number(this.state.input) - this.state.current
         });
         console.log(this.state.current + ' current');
         console.log(this.state.input + ' input');
@@ -58,10 +75,11 @@ class Calculate extends Component {
             input: latestNum
         })
     };
+
     render() {
         return <React.Fragment>
-            <h1>React Calculator</h1>
-            <Screen input={this.state.input} handleChange={this.handleChange}/>
+
+            <Screen input={this.state.input} result = {this.state.result} handleChange={this.handleChange}/>
             <OperandButtons addition={this.addition}
                             subtraction={this.subtraction}
                             clear={this.clear}
@@ -70,8 +88,6 @@ class Calculate extends Component {
                             subtractionMarker={this.state.subtractionMarker}
                             markingColor={this.state.markingColor}
             />
-            <p>Input {this.state.input}: </p>
-            <p>Result {this.state.result}: </p>
             <CalcMemory addToMemory={this.addToMemory} useMemory={this.useMemory}/>
         </React.Fragment>
     }
