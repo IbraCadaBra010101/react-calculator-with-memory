@@ -4,17 +4,16 @@ import OperandButtons from './components/OperandButtons'
 import CalcMemory from './components/CalcMemory'
 
 class Calculate extends Component {
-
     state = {
         operator: '',
-        input: 0,
-        result: 0,
+        input: '',
+        current: '',
+        result: '',
         memory: [],
         additionMarker: false,
         subtractionMarker: false,
         markingColor: 'green'
     };
-
     handleChange = (event) => {
         this.setState({
             input: event,
@@ -25,15 +24,18 @@ class Calculate extends Component {
             operator: '+',
             additionMarker: true,
             subtractionMarker: false,
-
-        })
+            current: Number(this.state.input) +  Number(this.state.current )
+        });
     };
     subtraction = () => {
         this.setState({
             operator: '-',
             subtractionMarker: true,
-            additionMarker:false,
-        })
+            additionMarker: false,
+            current: -Number(this.state.input) - this.state.current
+        });
+        console.log(this.state.current + ' current');
+        console.log(this.state.input + ' input');
     };
     clear = () => {
         this.setState({
@@ -41,25 +43,13 @@ class Calculate extends Component {
         })
     };
     equals = () => {
-
-        let currentOperator = this.state.operator;
-        console.log(this.state.input);
-        if (currentOperator === '+') {
-            this.setState({
-                result: this.state.result + Number(this.state.input),
-            });
-        }
-        if (currentOperator === '-') {
-            this.setState({
-                result: this.state.result - Number(this.state.input),
-            });
-        }
+        this.setState({
+            result: Number(this.state.current)
+        })
     };
-
     savedResults = [];
     addToMemory = () => {
         this.savedResults.push(this.state.input);
-
     };
     useMemory = () => {
         const toBeUsedInExpression = [...this.savedResults];
@@ -68,10 +58,7 @@ class Calculate extends Component {
             input: latestNum
         })
     };
-
     render() {
-
-
         return <React.Fragment>
             <h1>React Calculator</h1>
             <Screen input={this.state.input} handleChange={this.handleChange}/>
@@ -80,9 +67,8 @@ class Calculate extends Component {
                             clear={this.clear}
                             equals={this.equals}
                             additionMarker={this.state.additionMarker}
-                            subtractionMarker = {this.state.subtractionMarker}
+                            subtractionMarker={this.state.subtractionMarker}
                             markingColor={this.state.markingColor}
-
             />
             <p>Input {this.state.input}: </p>
             <p>Result {this.state.result}: </p>
