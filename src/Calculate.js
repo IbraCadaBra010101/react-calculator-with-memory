@@ -8,7 +8,7 @@ class Calculate extends Component {
         operator: '',
         input: '',
         current: '',
-        result: '',
+        result: 0,
         memory: [],
         additionMarker: false,
         subtractionMarker: false,
@@ -35,33 +35,60 @@ class Calculate extends Component {
     //     });
     // }
     addition = () => {
+
         this.setState({
             operator: '+',
             additionMarker: true,
             subtractionMarker: false,
-            current: Number(this.state.input) +  Number(this.state.current )
+            current: Number(this.state.input) + Number(this.state.current)
         });
     };
-
-
+    // addition = () => {
+    //     this.setState(prevState => {
+    //         return {result: prevState.input }
+    //     })
+    // };
     subtraction = () => {
         this.setState({
-            operator: '-',
-            subtractionMarker: true,
-            additionMarker: false,
-            current: Number(this.state.input) - this.state.current
+            current: this.state.input
         });
-        console.log(this.state.current + ' current');
-        console.log(this.state.input + ' input');
+        this.setState(() => {
+            if (this.state.current > 0) {
+                let result = this.state.current - Number(this.state.input);
+                console.log(result);
+                return {
+                    current: result
+                }
+            }
+        })
+
     };
+    // subtraction = () => {
+    //     this.setState({
+    //         operator: '-',
+    //         subtractionMarker: true,
+    //         additionMarker: false,
+    //         current: Number(this.state.input)
+    //     });
+    //
+    // };
     clear = () => {
         this.setState({
             input: 0,
         })
     };
     equals = () => {
+        // let currentOperator = this.state.operator;
+        // if (currentOperator === '+') {
+        //     this.setState({result: this.state.current - Number(this.state.input)});
+        // } else {
+        //     this.setState({
+        //         result: this.state.result
+        //     })
+        // }
+
         this.setState({
-            result: Number(this.state.current)
+            result: this.state.current
         })
     };
     savedResults = [];
@@ -79,7 +106,7 @@ class Calculate extends Component {
     render() {
         return <React.Fragment>
 
-            <Screen input={this.state.input} result = {this.state.result} handleChange={this.handleChange}/>
+            <Screen input={this.state.input} result={this.state.result} handleChange={this.handleChange}/>
             <OperandButtons addition={this.addition}
                             subtraction={this.subtraction}
                             clear={this.clear}
