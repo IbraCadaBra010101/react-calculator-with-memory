@@ -5,6 +5,7 @@ const OperandButtons = props =>
     (
         (
             <React.Fragment>
+                <p>
                 <button className={'operandButton'}
                         style={{backgroundColor: props.subtractionMarker ? props.markingColor: 'white'}}
                         onClick={props.subtraction}>-</button>
@@ -13,10 +14,10 @@ const OperandButtons = props =>
                         onClick={props.addition}>+</button>
                 <button className={'Clear'} onClick={props.clear}
 
-                >Clear</button>
+                >CE</button>
                 <button  onClick={props.equals}
 
-                >=</button>
+                >=</button></p>
             </React.Fragment>
         )
     );

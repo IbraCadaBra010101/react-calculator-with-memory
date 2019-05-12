@@ -7,28 +7,34 @@ class Calculate extends Component {
     state = {
         operator: '',
         input: '',
-        current: '',
+        current: 0,
         result: 0,
-        memory: [],
+        all: [],
+        showAll: false,
         additionMarker: false,
         subtractionMarker: false,
         markingColor: 'green'
     };
+
+
+    operatorClicked = 0;
     handleChange = (event) => {
         this.setState({
             input: event,
         });
     };
     addition = () => {
+        this.operatorClicked++;
         this.setState({
             operator: '+',
             additionMarker: true,
             subtractionMarker: false,
             current: Number(this.state.input) + Number(this.state.current)
         });
-    };
 
+    };
     subtraction = () => {
+        this.operatorClicked++;
         this.setState({
             current: this.state.input,
             operator: '-',
@@ -43,8 +49,7 @@ class Calculate extends Component {
                     current: result,
                 }
             }
-        })
-
+        });
     };
     clear = () => {
         this.setState({
@@ -52,15 +57,20 @@ class Calculate extends Component {
         })
     };
     equals = () => {
-        this.setState({
-            result: this.state.current
-        });
-        console.log(this.state.current);
+        this.setState({result: this.state.current},
+            () => {
+                return {
+                    result: this.state.current,
+                    all: this.state.all.push(this.state.result)
+                }
+            }
+        );
+
+        console.log(this.state.all);
     };
     savedResults = [];
     addToMemory = () => {
-        this.savedResults.push(this.state.result);
-        console.log(this.savedResults);
+        this.savedResults.push(this.state.current);
     };
     latestNum = 0;
     useMemory = () => {
@@ -74,10 +84,12 @@ class Calculate extends Component {
 
     render() {
         return <React.Fragment>
-
             <Screen input={this.state.input}
                     result={this.state.result}
+                    current={this.state.current}
                     handleChange={this.handleChange}
+                    operatorClicked={this.operatorClicked}
+                    all={this.state.all}
 
             />
             <OperandButtons addition={this.addition}
