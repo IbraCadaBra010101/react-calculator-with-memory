@@ -17,25 +17,9 @@ class Calculate extends Component {
     handleChange = (event) => {
         this.setState({
             input: event,
-
         });
     };
-
-    // addition = () => {
-    //     this.setState((prev, props) => {
-    //         return {input: Number(prev.input)}
-    //     });
-    //     console.log(this.state.input);
-    //
-    // };
-
-    // submit(){
-    //     this.setState(function(prevState, props){
-    //         return {showForm: !prevState.showForm}
-    //     });
-    // }
     addition = () => {
-
         this.setState({
             operator: '+',
             additionMarker: true,
@@ -43,50 +27,31 @@ class Calculate extends Component {
             current: Number(this.state.input) + Number(this.state.current)
         });
     };
-    // addition = () => {
-    //     this.setState(prevState => {
-    //         return {result: prevState.input }
-    //     })
-    // };
     subtraction = () => {
         this.setState({
-            current: this.state.input
+            current: this.state.input,
+            operator: '-',
+            subtractionMarker: true,
+            additionMarker: false,
         });
         this.setState(() => {
             if (this.state.current > 0) {
                 let result = this.state.current - Number(this.state.input);
                 console.log(result);
                 return {
-                    current: result
+                    current: result,
+
                 }
             }
         })
 
     };
-    // subtraction = () => {
-    //     this.setState({
-    //         operator: '-',
-    //         subtractionMarker: true,
-    //         additionMarker: false,
-    //         current: Number(this.state.input)
-    //     });
-    //
-    // };
     clear = () => {
         this.setState({
             input: 0,
         })
     };
     equals = () => {
-        // let currentOperator = this.state.operator;
-        // if (currentOperator === '+') {
-        //     this.setState({result: this.state.current - Number(this.state.input)});
-        // } else {
-        //     this.setState({
-        //         result: this.state.result
-        //     })
-        // }
-
         this.setState({
             result: this.state.current
         })

@@ -12,10 +12,10 @@ const OperandButtons = props =>
                          style={{backgroundColor: props.additionMarker ? props.markingColor: 'white'}}
                         onClick={props.addition}>+</button>
                 <button className={'Clear'} onClick={props.clear}
-                        // style={{backgroundColor: props.toggleColor ? props.markingColor: 'red'}}
+
                 >Clear</button>
                 <button  onClick={props.equals}
-                         // style={{backgroundColor: props.toggleColor ? props.markingColor: 'white'}}
+
                 >=</button>
             </React.Fragment>
         )
