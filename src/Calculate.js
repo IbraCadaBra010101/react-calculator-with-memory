@@ -27,6 +27,7 @@ class Calculate extends Component {
             current: Number(this.state.input) + Number(this.state.current)
         });
     };
+
     subtraction = () => {
         this.setState({
             current: this.state.input,
@@ -40,7 +41,6 @@ class Calculate extends Component {
                 console.log(result);
                 return {
                     current: result,
-
                 }
             }
         })
@@ -54,24 +54,32 @@ class Calculate extends Component {
     equals = () => {
         this.setState({
             result: this.state.current
-        })
+        });
+        console.log(this.state.current);
     };
     savedResults = [];
     addToMemory = () => {
-        this.savedResults.push(this.state.input);
+        this.savedResults.push(this.state.result);
+        console.log(this.savedResults);
     };
+    latestNum = 0;
     useMemory = () => {
         const toBeUsedInExpression = [...this.savedResults];
-        let latestNum = toBeUsedInExpression.pop();
+        this.latestNum = toBeUsedInExpression.pop();
         this.setState({
-            input: latestNum
-        })
+            current: this.latestNum - this.latestNum,
+            input: this.latestNum,
+        });
     };
 
     render() {
         return <React.Fragment>
 
-            <Screen input={this.state.input} result={this.state.result} handleChange={this.handleChange}/>
+            <Screen input={this.state.input}
+                    result={this.state.result}
+                    handleChange={this.handleChange}
+
+            />
             <OperandButtons addition={this.addition}
                             subtraction={this.subtraction}
                             clear={this.clear}
