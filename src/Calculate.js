@@ -17,6 +17,15 @@ class Calculate extends Component {
     };
 
 
+    // Jag förstår. Nej, det ska inte behövas några
+    // callbacks. Om du sparat resultatet av den senaste
+    // plus/minus operationen och det senast inskrivna värdet i state, så är det bara att kombinera dem.
+    //
+    // Rendera resultatet när man klickar på "=". När man skriver en
+    // längre operation (1+2-3+4 osv) så vill jag se delresultatet
+    // (t.ex. i input-fältet) varje gång man klickar på plus/minus.
+
+
     operatorClicked = 0;
     handleChange = (event) => {
         this.setState({
@@ -24,85 +33,88 @@ class Calculate extends Component {
         });
     };
     addition = () => {
-        this.operatorClicked++;
+
         this.setState({
             operator: '+',
             additionMarker: true,
             subtractionMarker: false,
-            current: Number(this.state.input) + Number(this.state.current)
-        });
-
-    };
-    subtraction = () => {
-        this.operatorClicked++;
-        this.setState({
             current: this.state.input,
+        });
+        console.log(this.state)
+    };
+
+    subtraction = () => {
+        this.setState({
             operator: '-',
-            subtractionMarker: true,
             additionMarker: false,
+            subtractionMarker: true,
+            current: this.state.input,
         });
-        this.setState(() => {
-            if (this.state.current > 0) {
-                let result = this.state.current - Number(this.state.input);
-                console.log(result);
-                return {
-                    current: result,
-                }
-            }
-        });
+        console.log(this.state)
     };
     clear = () => {
         this.setState({
             input: 0,
         })
     };
+
     equals = () => {
-        this.setState({result: this.state.current},
-            () => {
-                return {
-                    result: this.state.current,
-                    all: this.state.all.push(this.state.result)
-                }
-            }
-        );
+        if (this.state.operator === '+') {
+            let result = +Number(this.state.current) + Number(this.state.input);
+            this.setState({
+                current: result,
+                result: result + Number(this.state.current)
+            });
+        }
+        if (this.state.operator === '-') {
+            let result =- Number(this.state.current) - Number(this.state.input);
+            this.setState({
+                current: this.state.current - Number(this.state.input),
+                result: result
+            });
+        }
+        console.log('test');
+    };
+savedResults = [];
+addToMemory = () => {
+    this.savedResults.push(this.state.current);
+};
+latestNum = 0;
+useMemory = () => {
+    const toBeUsedInExpression = [...this.savedResults];
+    this.latestNum = toBeUsedInExpression.pop();
+    this.setState({
+        current: this.latestNum - this.latestNum,
+        input: this.latestNum,
+    });
+};
 
-        console.log(this.state.all);
-    };
-    savedResults = [];
-    addToMemory = () => {
-        this.savedResults.push(this.state.current);
-    };
-    latestNum = 0;
-    useMemory = () => {
-        const toBeUsedInExpression = [...this.savedResults];
-        this.latestNum = toBeUsedInExpression.pop();
-        this.setState({
-            current: this.latestNum - this.latestNum,
-            input: this.latestNum,
-        });
-    };
-
-    render() {
-        return <React.Fragment>
-            <Screen input={this.state.input}
-                    result={this.state.result}
-                    current={this.state.current}
-                    handleChange={this.handleChange}
-                    operatorClicked={this.operatorClicked}
+render()
+{
+    return <React.Fragment>
+        <h3>Result: {this.state.result}</h3>
+        <h3>Current:{this.state.current}</h3>
+        <Screen input={this.state.input}
+                result={this.state.result}
+                current={this.state.current}
+                handleChange={this.handleChange}
+                operatorClicked={this.operatorClicked}
+                all={this.state.all}
+        />
+        <OperandButtons addition={this.addition}
+                        subtraction={this.subtraction}
+                        clear={this.clear}
+                        equals={this.equals}
+                        additionMarker={this.state.additionMarker}
+                        subtractionMarker={this.state.subtractionMarker}
+                        markingColor={this.state.markingColor}
+        />
+        <CalcMemory addToMemory={this.addToMemory}
+                    useMemory={this.useMemory}
                     all={this.state.all}
-
-            />
-            <OperandButtons addition={this.addition}
-                            subtraction={this.subtraction}
-                            clear={this.clear}
-                            equals={this.equals}
-                            additionMarker={this.state.additionMarker}
-                            subtractionMarker={this.state.subtractionMarker}
-                            markingColor={this.state.markingColor}
-            />
-            <CalcMemory addToMemory={this.addToMemory} useMemory={this.useMemory}/>
-        </React.Fragment>
-    }
+        />
+    </React.Fragment>
+}
 }
 
 export default Calculate;
