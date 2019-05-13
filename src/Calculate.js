@@ -50,7 +50,6 @@ class Calculate extends Component {
             subtractionMarker: true,
             current: this.state.input,
         });
-        console.log(this.state)
     };
     clear = () => {
         this.setState({
@@ -60,20 +59,21 @@ class Calculate extends Component {
 
     equals = () => {
         if (this.state.operator === '+') {
-            let result = +Number(this.state.current) + Number(this.state.input);
+            let result =Number(this.state.current) + Number(this.state.input);
             this.setState({
                 current: result,
-                result: result + Number(this.state.current)
+                result: result + Number(this.state.input)
             });
         }
         if (this.state.operator === '-') {
-            let result = -Number(this.state.current) - Number(this.state.input);
+            let result =+(Number(this.state.current) - Number(this.state.input));
+            console.log(result);
             this.setState({
                 current: this.state.current - Number(this.state.input),
-                result:  this.state.current - Number(this.state.input),
+                result:  result - Number(this.state.input),
             });
         }
-        console.log('test');
+
     };
 savedResults = [];
 addToMemory = () => {
