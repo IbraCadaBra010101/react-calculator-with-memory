@@ -67,10 +67,10 @@ class Calculate extends Component {
             });
         }
         if (this.state.operator === '-') {
-            let result =- Number(this.state.current) - Number(this.state.input);
+            let result = -Number(this.state.current) - Number(this.state.input);
             this.setState({
                 current: this.state.current - Number(this.state.input),
-                result: result
+                result:  this.state.current - Number(this.state.input),
             });
         }
         console.log('test');
