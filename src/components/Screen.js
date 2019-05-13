@@ -9,8 +9,8 @@ const Screen = props => {
             <h3>Result so far {props.current}</h3>
             <h3>List of results</h3>
             <ol>
-                {props.all.map(result =>
-                    <li>Result was: {result}</li>
+                {props.saveAllToList.map((result, index) =>
+                    <li key={index}>Result was: {result}</li>
                 )}
             </ol>
 
@@ -19,11 +19,13 @@ const Screen = props => {
         return <React.Fragment>
             <h1>React Calculator</h1>
             <input type="text" value={props.input} onChange={e => props.handleChange(e.target.value)}/>
+            <h3>List of results</h3>
             <ol>
-                {props.all.map(result =>
-                    <li>Result was: {result}</li>
+                {props.saveAllToList.map((result, index) =>
+                    <li key={index}>Result was: {result}</li>
                 )}
             </ol>
+
         </React.Fragment>
     }
 };

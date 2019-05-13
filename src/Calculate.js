@@ -10,7 +10,6 @@ class Calculate extends Component {
         current: 0,
         result: 0,
         soFar: 0,
-        all: [],
         showAll: false,
         additionMarker: false,
         subtractionMarker: false,
@@ -21,6 +20,7 @@ class Calculate extends Component {
         this.setState({
             input: event,
         });
+
     };
     addition = () => {
         let operatorWasClicked = this.state.operatorClicked;
@@ -39,6 +39,7 @@ class Calculate extends Component {
                 input: this.state.current + Number(this.state.input)
             })
         }
+
     };
     subtraction = () => {
         let operatorWasClicked = this.state.operatorClicked;
@@ -59,25 +60,33 @@ class Calculate extends Component {
     clear = () => {
         this.setState({
             input: 0,
+            current: 0,
+            result: 0,
         })
     };
     equals = () => {
+
         if (this.state.operator === '+') {
             this.setState({
                 result: Number(this.state.input) + this.state.current,
-                current: Number(this.state.input) + this.state.current
+                current: Number(this.state.input) + this.state.current,
             });
         }
         if (this.state.operator === '-') {
             this.setState({
                 result: this.state.current - Number(this.state.input),
-                current: this.state.current - Number(this.state.input)
+                current: this.state.current - Number(this.state.input),
             });
         }
     };
+    saveAllToList = [];
+    saveAllResults = () => {
+        this.saveAllToList.push(this.state.result);
+        console.log(this.saveAllToList)
+    };
     savedResults = [];
     addToMemory = () => {
-        this.savedResults.push(this.state.input);
+        this.savedResults.push(this.state.result);
     };
     latestNum = 0;
     useMemory = () => {
@@ -91,13 +100,13 @@ class Calculate extends Component {
     render() {
         return <React.Fragment>
             <h3>Result: {this.state.result}</h3>
-            <h3>Current:{this.state.current}</h3>
             <Screen input={this.state.input}
                     result={this.state.result}
                     current={this.state.current}
                     handleChange={this.handleChange}
                     operatorClicked={this.operatorClicked}
                     all={this.state.all}
+                    saveAllToList={this.saveAllToList}
             />
             <OperandButtons addition={this.addition}
                             subtraction={this.subtraction}
@@ -109,10 +118,24 @@ class Calculate extends Component {
             />
             <CalcMemory addToMemory={this.addToMemory}
                         useMemory={this.useMemory}
-                        all={this.state.all}
+                        saveAllResults={this.saveAllResults}
+
             />
         </React.Fragment>
     }
 }
 
 export default Calculate;
+
+// VG: Om man klickar på "M+ / spara resultat" ska resultatet
+// hittills sparas i appen. När man senare klickar på "M- / hämta"
+// ska det senast sparade resultatet hämtas läggas i textfältet.
+//     Exempel: 1 + 2, lika med (3), spara resultat (3), rensa (0),
+// 5 - (hämta resultat = 3) blir lika med 2
+
+// VG: appen ska klara operationer i flera steg.
+//     Alltså att man kan klicka flera gånger på
+// plus eller minus innan man klickar på lika med.
+//     Exempel: 1 + 2 + 3 + 4. Från och med andra
+// gånger man klickar på plus/minus ska resultatet
+// hittills visas - men inte läggas i listan.
